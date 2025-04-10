@@ -1,48 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-    
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <title>Create an Account</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-    <title>Create an Account</title>
-    <header>
-        <div class="logo">
-            <img src="logo.png">
-        </div>
-        <nav>
-            <i class="fas fa-globe"></i>
-            <a href="#">Sign Up</a>
-            <a href="#">Sign In</a>
-        </nav>
-    </header>
+    body {
+      background: #e3f8c7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-    <main>
-        <div class="signup-box">
-            <h2>Create an Account!</h2>
-            <p>Join us in the journey of being better</p>
-            <form>
-                <input type="email" placeholder="Email" required>
-                <div class="password-container">
-                    <input type="password" placeholder="Password" required>
-                    <span class="show-password">Show</span>
-                </div>
-                <a href="#" class="trouble">Having trouble in sign in?</a>
-                <button type="submit">Sign Up</button>
-            </form>
-            <div class="or">— Or Sign up with —</div>
-            <div class="social-buttons">
-                <button class="google"><i class="fab fa-google"></i> Google</button>
-                <button class="apple"><i class="fab fa-apple"></i> Apple ID</button>
-            </div>
-            <p class="login-link">Already have an account? <a href="#">Sign In Now!</a></p>
+    header {
+      position: absolute;
+      top: 20px;
+      width: 90%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 50px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #4A5D38;
+      font-weight: 500;
+    }
+
+    .form-box {
+      background: white;
+      padding: 50px 40px;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      font-weight: 700;
+      color: #495733;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #495733;
+      margin-bottom: 25px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      color: #495733;
+      border: 1.5px solid #495733;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .show-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      cursor: pointer;
+      color: #8b947d;
+      user-select: none;
+    }
+
+    .nextBtn {
+      width: 100%;
+      height: 55px;
+      background: rgba(73,87,51,1);
+      border: 2px solid rgba(73,87,51,1);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .nextBtnText {
+      color: white;
+      font-family: 'Century Gothic', sans-serif;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .nextBtn:hover {
+      background: rgba(93,107,61,1);
+    }
+
+    .nextBtn:hover .nextBtnText {
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 11.5px;
+      color: #777;
+      line-height: 1.6;
+    }
+
+    footer a {
+      color: #4A5D38;
+      text-decoration: none;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Logo" />
+    </div>
+    <nav>
+      <a href="createAcc.html">Sign Up</a>
+      <a href="loginAcc.html">Sign In</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="form-box">
+      <h2>Create an Account!</h2>
+      <p>Join us in the journey of being better</p>
+      <form id="signup-form">
+        <input type="email" id="email" placeholder="Email" required />
+        <div class="password-container">
+          <input type="password" id="password" placeholder="Password" required />
+          <span class="show-password" id="togglePassword">&#128065;</span>
         </div>
-        <footer>
-            <input type="checkbox" checked>
-            <label>Terms and Privacy Policy</label>
-        </footer>
-    </main>
+        <button type="submit" class="nextBtn">
+          <span class="nextBtnText">Sign Up</span>
+        </button>
+      </form>
+
+      <footer>
+        By Creating an account, you agree to MealPal's Terms<br />
+        of Services and Privacy Policy.<br /><br />
+        Already have an account? <a href="loginAcc.html">Sign In Now!</a>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById("togglePassword");
+      const passwordInput = document.getElementById("password");
+
+      toggle.addEventListener("click", () => {
+        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
+      });
+
+      const form = document.getElementById("signup-form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = passwordInput.value;
+        alert("Account created! (mock)");
+      });
+    });
+  </script>
 </body>
 </html>

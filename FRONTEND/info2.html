@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to MealPal</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Century+Gothic&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Century Gothic', sans-serif;
+      background-color: #fff;
+      color: #495733;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 700px;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 38px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 20px auto 40px;
+      color: #495733;
+    }
+
+    .diet-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 50px;
+    }
+
+    .diet-btn {
+      padding: 10px 22px;
+      border: 2px solid #495733;
+      border-radius: 999px;
+      background-color: white;
+      color: #495733;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      min-width: 80px;
+    }
+
+    .diet-btn.selected {
+      background-color: #495733;
+      color: white;
+    }
+
+    .progress-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+
+    .progress-fill {
+      width: 80px;
+      height: 10px;
+      background-color: #495733;
+      border-radius: 5px;
+    }
+
+    .progress-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #d9d9d9;
+      border-radius: 50%;
+    }
+
+    .next-btn {
+      padding: 16px 60px;
+      background-color: #495733;
+      color: white;
+      border: none;
+      border-radius: 16px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .next-btn:hover {
+      background-color: #5d6b3d;
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Do you follower any <br>of these diets?</h1>
+    <p>To offer you the best tailored diet experience,<br>we need to know more information about you.</p>
+
+    <div class="diet-buttons">
+      <button class="diet-btn">None</button>
+      <button class="diet-btn">Vegan</button>
+      <button class="diet-btn">Dukan</button>
+      <button class="diet-btn">Vegetarian</button>
+      <button class="diet-btn">Atkins</button>
+      <button class="diet-btn">Paleo</button>
+      <button class="diet-btn">Intermitten Fasting</button>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+      <div class="progress-dot"></div>
+      <div class="progress-dot"></div>
+    </div>
+
+    <a href="info3.html">
+        <button class="next-btn">Next</button>
+      </a>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.diet-btn');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        if (button.textContent === 'None') {
+          buttons.forEach(btn => btn.classList.remove('selected'));
+          button.classList.add('selected');
+        } else {
+          button.classList.toggle('selected');
+          buttons[0].classList.remove('selected'); // deselect "None"
+        }
+      });
+    });
+  </script>
+</body>
+</html>
