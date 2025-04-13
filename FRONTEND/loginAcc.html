@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="icon" type="image/png" href="images/logo.png" />
   <title>Sign In</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* Same styles as createAcc.html */
     * {
       margin: 0;
       padding: 0;
@@ -34,6 +33,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      z-index: 10;
     }
 
     .logo img {
@@ -49,6 +49,40 @@
     nav a {
       text-decoration: none;
       color: #4A5D38;
+      font-weight: 500;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background-color: #4A5D38;
+      border-radius: 2px;
+    }
+
+    .mobile-nav {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 10px 15px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .mobile-nav a {
+      display: block;
+      margin-bottom: 10px;
+      color: #4A5D38;
+      text-decoration: none;
       font-weight: 500;
     }
 
@@ -148,17 +182,49 @@
       text-decoration: none;
       font-weight: 500;
     }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .mobile-nav {
+        display: none;
+        flex-direction: column;
+      }
+
+      .mobile-nav.active {
+        display: flex;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">
-      <img src="images/logo.png" class="logo">
+      <img src="images/logo.png" class="logo" />
     </div>
+
     <nav>
       <a href="createAcc.html">Sign Up</a>
       <a href="loginAcc.html">Sign In</a>
     </nav>
+
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav">
+      <a href="createAcc.html">Sign Up</a>
+      <a href="loginAcc.html">Sign In</a>
+    </div>
   </header>
 
   <main>
@@ -183,38 +249,45 @@
   </main>
 
   <script>
-     document.addEventListener("DOMContentLoaded", () => {
-    const toggle = document.getElementById("toggleLoginPassword");
-    const passwordInput = document.getElementById("login-password");
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle = document.getElementById("toggleLoginPassword");
+      const passwordInput = document.getElementById("login-password");
 
-    toggle.addEventListener("click", () => {
-      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-      passwordInput.setAttribute("type", type);
-    });
-
-    const form = document.getElementById("login-form");
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const email = document.getElementById("login-email").value;
-      const password = passwordInput.value;
-
-      const res = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+      toggle.addEventListener("click", () => {
+        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
       });
 
-      const data = await res.json();
+      const hamburger = document.getElementById("hamburger");
+      const mobileNav = document.getElementById("mobileNav");
 
-      if (res.ok) {
-        alert("Logged in successfully!");
-        window.location.href = "dashboard.html"; 
-      } else {
-        alert(data.message || "Login failed");
-      }
+      hamburger.addEventListener("click", () => {
+        mobileNav.classList.toggle("active");
+      });
+
+      const form = document.getElementById("login-form");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("login-email").value;
+        const password = passwordInput.value;
+
+        const res = await fetch("http://localhost:5000/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          alert("Logged in successfully!");
+          window.location.href = "dashboard.html";
+        } else {
+          alert(data.message || "Login failed");
+        }
+      });
     });
-  });
   </script>
 </body>
 </html>
