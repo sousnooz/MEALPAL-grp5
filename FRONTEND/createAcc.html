@@ -146,13 +146,49 @@
       color: #4A5D38;
       text-decoration: none;
       font-weight: 500;
+      cursor: pointer;
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 30px;
+      border-radius: 12px;
+      width: 80%;
+      max-width: 500px;
+      color: #495733;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .close {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #777;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">
-      <img src="logo.png" alt="Logo" />
+      <img src="images/logo.png" class="logo">
     </div>
     <nav>
       <a href="createAcc.html">Sign Up</a>
@@ -176,12 +212,31 @@
       </form>
 
       <footer>
-        By Creating an account, you agree to MealPal's Terms<br />
-        of Services and Privacy Policy.<br /><br />
+        By creating an account, you agree to MealPal's 
+        <a href="#" onclick="openModal('termsModal')">Terms of Services</a> and 
+        <a href="#" onclick="openModal('privacyModal')">Privacy Policy</a>.<br /><br />
         Already have an account? <a href="loginAcc.html">Sign In Now!</a>
       </footer>
     </div>
   </main>
+
+  <!-- Terms of Services Modal -->
+  <div id="termsModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('termsModal')">&times;</span>
+      <h3>Terms of Services</h3>
+      <p>This is where your Terms of Services text will go.</p>
+    </div>
+  </div>
+
+  <!-- Privacy Policy Modal -->
+  <div id="privacyModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('privacyModal')">&times;</span>
+      <h3>Privacy Policy</h3>
+      <p>This is where your Privacy Policy text will go.</p>
+    </div>
+  </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -201,6 +256,23 @@
         alert("Account created! (mock)");
       });
     });
+
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      });
+    }
   </script>
 </body>
 </html>
