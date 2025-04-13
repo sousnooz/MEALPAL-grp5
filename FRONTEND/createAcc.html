@@ -240,23 +240,15 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const toggle = document.getElementById("togglePassword");
-      const passwordInput = document.getElementById("password");
+    const toggle = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
 
-      toggle.addEventListener("click", () => {
-        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-        passwordInput.setAttribute("type", type);
-      });
-
-      const form = document.getElementById("signup-form");
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const email = document.getElementById("email").value;
-        const password = passwordInput.value;
-        alert("Account created! (mock)");
-      });
+    toggle.addEventListener("click", () => {
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
     });
 
+<<<<<<< HEAD
     function openModal(id) {
       document.getElementById(id).style.display = 'block';
     }
@@ -273,6 +265,32 @@
         }
       });
     }
+=======
+    const form = document.getElementById("signup-form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = passwordInput.value;
+
+      const res = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Account created successfully!");
+        window.location.href = "welcome.html";
+      } else {
+        alert(data.message || "Signup failed");
+      }
+    });
+  });
+
+>>>>>>> 4a8a362548bf751cb664f839b2e748ac8772f3b3
   </script>
 </body>
 </html>
