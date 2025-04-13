@@ -183,23 +183,38 @@
   </main>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const toggle = document.getElementById("toggleLoginPassword");
-      const passwordInput = document.getElementById("login-password");
+     document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("toggleLoginPassword");
+    const passwordInput = document.getElementById("login-password");
 
-      toggle.addEventListener("click", () => {
-        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-        passwordInput.setAttribute("type", type);
-      });
-
-      const form = document.getElementById("login-form");
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const email = document.getElementById("login-email").value;
-        const password = passwordInput.value;
-        alert("Logged in! (mock)");
-      });
+    toggle.addEventListener("click", () => {
+      const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.setAttribute("type", type);
     });
+
+    const form = document.getElementById("login-form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("login-email").value;
+      const password = passwordInput.value;
+
+      const res = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Logged in successfully!");
+        window.location.href = "dashboard.html"; 
+      } else {
+        alert(data.message || "Login failed");
+      }
+    });
+  });
   </script>
 </body>
 </html>
