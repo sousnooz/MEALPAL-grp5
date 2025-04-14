@@ -1,5 +1,4 @@
-from fastapi import HTTPException
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from motor.motor_asyncio import AsyncIOMotorClient
 from passlib.context import CryptContext
@@ -32,12 +31,18 @@ class User(BaseModel):
 def hash_password(password: str):
     return pwd_context.hash(password)
 
+# Basic logging setup
+logging.basicConfig(level=logging.INFO)
+
 # Endpoint for signup
 @app.post("/signup")
 async def signup(user: User):
+    logging.info(f"Received signup request for email: {user.email}")
+
     # Check if the user already exists
     existing_user = await users_collection.find_one({"email": user.email})
     if existing_user:
+        logging.info("User already exists")
         raise HTTPException(status_code=400, detail="User already exists")
 
     # Hash password
@@ -53,8 +58,10 @@ async def signup(user: User):
     # Insert the new user into the database
     result = await users_collection.insert_one(new_user)
     if result.acknowledged:
+        logging.info(f"User {user.email} created successfully")
         return {"message": "User created successfully"}
     else:
+        logging.error("Error creating user")
         raise HTTPException(status_code=500, detail="Server error")
 
 # Basic test route
