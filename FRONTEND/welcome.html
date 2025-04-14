@@ -1,11 +1,9 @@
-    <!-- NOT FINAL ASDJKAHSFKFHLKJASHF PLS -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css?family=Century+Gothic&display=swap" rel="stylesheet" />
-  <link href="./css/welcome.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <title>Welcome to MealPal</title>
@@ -13,6 +11,8 @@
     body { 
       font-family:'Century Gothic', sans-serif; 
       font-size: 14px; 
+      margin: 0;
+      padding: 0;
     }
 
     .main { 
@@ -25,15 +25,19 @@
       overflow: hidden; 
     }
 
+    /* Progress bar (smooth) */
     .bar { 
       width: 115px; 
       height: 22px; 
       background: rgba(73,87,51,1); 
       position: absolute; 
       top: 835px; 
-      left: 711px; 
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 12px; /* Smooth edges */
     }
 
+    /* Circles */
     .circle1, .circle2, .circle3 {
       width: 22px; 
       height: 22px; 
@@ -43,10 +47,11 @@
       border-radius: 50%; 
     }
 
-    .circle1 { left: 835px; }
-    .circle2 { left: 866px; }
-    .circle3 { left: 897px; }
+    .circle1 { left: 35px; }
+    .circle2 { left: 55px; }
+    .circle3 { left: 75px; }
 
+    /* Next button styling */
     .nextBtn {
       width: 235px;
       height: 70px;
@@ -59,7 +64,8 @@
       text-decoration: none;
       position: absolute;
       top: 811px;
-      left: 994px;
+      left: 50%;
+      transform: translateX(-50%);
       transition: background 0.3s ease;
     }
 
@@ -80,12 +86,13 @@
       transform: scale(1.05);
     }
 
+    /* Title and subtitle */
     .titleText { 
-      width: 481px; 
       color: rgba(73,87,51,1); 
       position: absolute; 
       top: 420px; 
-      left: 720px; 
+      left: 50%;
+      transform: translateX(-50%);
       font-family: Century Gothic;
       font-weight: bold; 
       font-size: 55px; 
@@ -93,20 +100,22 @@
     }
 
     .subText { 
-      width: 537px; 
       color: rgba(73,87,51,1); 
       position: absolute; 
       top: 596px; 
-      left: 692px; 
+      left: 50%;
+      transform: translateX(-50%);
       font-family: Century Gothic;
       font-weight: normal; 
       font-size: 30px; 
       text-align: center; 
     }
 
+    /* Image styling */
     .pic1, .pic2, .pic3 { 
-      width: 620px;
-      height: 269px;
+      width: 100%;
+      max-width: 620px;
+      height: auto;
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
@@ -118,6 +127,51 @@
     .pic1 { background-image: url("../images/v34_7.png"); top: 151px; left: 0px; }
     .pic2 { background-image: url("../images/v34_9.png"); top: 102px; left: 650px; }
     .pic3 { background-image: url("../images/v34_8.png"); top: 151px; left: 1301px; }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .pic1, .pic2, .pic3 {
+        width: 100%;
+        max-width: 90%;
+        margin: 10px 0;
+      }
+      
+      .titleText, .subText {
+        font-size: 22px;
+        width: 90%;
+        left: 5%;
+        top: 300px;
+      }
+      
+      .bar {
+        width: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 750px;
+      }
+
+      .nextBtn {
+        width: 200px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 850px;
+      }
+
+      .circle1, .circle2, .circle3 {
+        left: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .titleText, .subText {
+        font-size: 18px;
+      }
+
+      .nextBtn {
+        width: 180px;
+        height: 60px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -130,7 +184,7 @@
       <div class="circle3"></div>
     </div>
 
-    <!-- WORKING BUTTON BELOW -->
+    <!-- Next button -->
     <a href="info1.html" class="nextBtn">
       <span class="nextBtnText">Next</span>
     </a>
