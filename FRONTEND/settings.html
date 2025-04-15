@@ -5,6 +5,11 @@
   <title>MealPal</title>
   <link rel="icon" type="image/png" href="images/logo.png" />
   <style>
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: 'Century Gothic', sans-serif;
@@ -136,6 +141,109 @@
       margin-top: 30px;
       margin-bottom: 10px;
     }
+
+.settings-tab-box {
+  display: flex;
+  justify-content: space-between;
+  background-color: #e6f8d7;
+  border: 2px solid #495733;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.settings-tabs .tab {
+  background: #f2fdf0;
+  border: 2px solid #b7d7a8;
+  border-radius: 10px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #495733;
+}
+
+.settings-tabs .tab.active {
+  background: #d2f4b7;
+  font-weight: bold;
+}
+
+.settings-section {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.section-box {
+  background: #e3f8c7;
+  border: 2px solid #b7d7a8;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.section-box h3 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.profile-pic {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 10px 0;
+}
+
+.profile-pic img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.change-btn {
+  padding: 8px 12px;
+  background: #c4e6a5;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.input-group {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.tag-section {
+  margin: 10px 0;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  padding: 8px 12px;
+  background-color: #d2f4b7;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #495733;
+  border: 1px solid #a3c789;
+}
+
   </style>
 </head>
 <body>
@@ -179,7 +287,88 @@
     <!-- Placeholder Title -->
     <div class="section-title">Settings</div>
 
-    <!-- You can now add your page-specific content below this line -->
+    <div class="settings-tabs">
+      <button class="tab active">Edit Profile</button>
+      <button class="tab">Account Information</button>
+      <button class="tab">Meal Plan Preferences</button>
+      <button class="tab">Privacy and Security</button>
+    </div>
+    
+    <div class="settings-section">
+      <!-- Profile Settings -->
+      <div class="section-box">
+        <h3>Profile Settings</h3>
+        <div class="profile-pic">
+          <img src="images/profile.png" alt="User Icon">
+          <button class="change-btn">Change Icon</button>
+        </div>
+        <div class="input-group">
+          <label>Name</label>
+          <input type="text" placeholder="User's Name">
+        </div>
+        <div class="input-group">
+          <label>Age</label>
+          <input type="text" placeholder="User's Age">
+        </div>
+      </div>
+    
+      <!-- Account Information -->
+      <div class="section-box">
+        <h3>Account Information</h3>
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" value="example@email.com">
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" value="********">
+        </div>
+        <div class="input-group">
+          <label>Linked Accounts</label>
+          <input type="text" value="example@email.com">
+        </div>
+      </div>
+    
+      <!-- Meal Plan Preferences -->
+      <div class="section-box">
+        <h3>Meal Plan Preferences</h3>
+        <div class="tag-section">
+          <p>Ingredient Allergies</p>
+          <div class="tags">
+            <span class="tag">Dairy</span>
+            <span class="tag">Nuts</span>
+            <span class="tag">Gluten</span>
+            <!-- Add more -->
+          </div>
+        </div>
+        <div class="tag-section">
+          <p>Diet Routines</p>
+          <div class="tags">
+            <span class="tag">Vegan</span>
+            <span class="tag">Paleo</span>
+            <span class="tag">Keto</span>
+          </div>
+        </div>
+        <div class="tag-section">
+          <p>Fitness Training</p>
+          <div class="tags">
+            <span class="tag">Strength</span>
+            <span class="tag">Mobility</span>
+            <span class="tag">Endurance</span>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Privacy and Security -->
+      <div class="section-box">
+        <h3>Privacy and Security</h3>
+        <div class="input-group">
+          <label>Delete Account</label>
+          <input type="password" placeholder="Re-enter your password to continue">
+        </div>
+      </div>
+    </div>
+    
 
   </div>
 </body>
