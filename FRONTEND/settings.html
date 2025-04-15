@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MealPal</title>
   <link rel="icon" type="image/png" href="images/logo.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
-
     html {
       scroll-behavior: smooth;
     }
@@ -14,16 +15,16 @@
       margin: 0;
       font-family: 'Century Gothic', sans-serif;
       background-color: #ffffff;
-      display: flex;
       color: #495733;
     }
 
+    /* side navigation bar */
     .sidebar {
       position: fixed;
       top: 0;
       left: 0;
       height: 100vh;
-      width: 250px;
+      width: 320px;
       background-color: #e3f8c7;
       padding: 20px;
       display: flex;
@@ -32,60 +33,39 @@
       border-top-right-radius: 20px;
       border-bottom-right-radius: 20px;
       box-sizing: border-box;
-      z-index: 1000;
+      z-index: 1050;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar.hide {
+      transform: translateX(-100%);
     }
 
     .logo {
       width: 100px;
       height: 100px;
-      padding: 30px 20px;
+      margin-bottom: 40px;
       object-fit: contain;
       border-radius: 20px;
-      margin-bottom: 40px;
     }
 
     .nav-item {
-      position: relative;
-      z-index: 1;
       width: 100%;
       margin: 10px 0;
       padding: 20px 20px;
-      border-radius: 10px;
       display: flex;
       align-items: center;
       gap: 15px;
+      font-size: 24px;
       text-decoration: none;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-      overflow: hidden;
       color: #495733;
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
     }
 
     .nav-item img {
-      width: 20px;
-      height: 20px;
-      padding: 10px 10px;
-      object-fit: contain;
-    }
-
-    .nav-item::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 10px;
-      transform: translateY(-50%);
-      width: calc(100% - 20px);
-      height: 120%;
-      background-color: #ffffff;
-      border-radius: 12px;
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .nav-item:hover::before,
-    .nav-item.active::before {
-      opacity: 1;
+      width: 40px;
+      height: 40px;
     }
 
     .nav-item:hover,
@@ -100,11 +80,13 @@
     }
 
     .main {
-      margin-left: 250px;
-      padding: 30px;
-      flex-grow: 1;
-      width: calc(100% - 250px);
-      box-sizing: border-box;
+      margin-left: 320px;
+      padding: 20px;
+      transition: margin-left 0.3s ease;
+    }
+
+    .main.shifted {
+      margin-left: 0;
     }
 
     .top-bar {
@@ -112,12 +94,12 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 2px solid #ccc;
-      padding-bottom: 15px;
-      margin-bottom: 15px;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
     }
 
     .top-bar h1 {
-      font-size: 20px;
+      font-size: 25px;
       font-weight: normal;
       margin: 0;
     }
@@ -128,248 +110,107 @@
     }
 
     .icon {
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
       margin-left: 15px;
-      object-fit: contain;
       cursor: pointer;
     }
 
     .section-title {
-      font-size: 28px;
+      font-size: 35px;
       font-weight: bold;
       margin-top: 30px;
       margin-bottom: 10px;
     }
 
-.settings-tab-box {
-  display: flex;
-  justify-content: space-between;
-  background-color: #e6f8d7;
-  border: 2px solid #495733;
-  border-radius: 12px;
-  padding: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
+    /* hamburger button for phone view */
+    .hamburger {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1100;
+      background: #e3f8c7;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+    }
 
-.settings-tabs .tab {
-  background: #f2fdf0;
-  border: 2px solid #b7d7a8;
-  border-radius: 10px;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #495733;
-}
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
 
-.settings-tabs .tab.active {
-  background: #d2f4b7;
-  font-weight: bold;
-}
+      .sidebar.show {
+        transform: translateX(0);
+      }
 
-.settings-section {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
+      .main {
+        margin-left: 0;
+      }
 
-.section-box {
-  background: #e3f8c7;
-  border: 2px solid #b7d7a8;
-  border-radius: 15px;
-  padding: 20px;
-}
-
-.section-box h3 {
-  margin-top: 0;
-  font-size: 18px;
-}
-
-.profile-pic {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin: 10px 0;
-}
-
-.profile-pic img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-}
-
-.change-btn {
-  padding: 8px 12px;
-  background: #c4e6a5;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.input-group {
-  margin: 10px 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.input-group label {
-  font-size: 14px;
-  margin-bottom: 5px;
-}
-
-.input-group input {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.tag-section {
-  margin: 10px 0;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.tag {
-  padding: 8px 12px;
-  background-color: #d2f4b7;
-  border-radius: 20px;
-  font-size: 14px;
-  color: #495733;
-  border: 1px solid #a3c789;
-}
-
+      .hamburger {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <img src="images/logo.png" class="logo">
+  <!-- hamburger menu button for phone view -->
+  <button class="hamburger" id="menu-toggle">
+    ☰
+  </button>
+
+  <!-- side bar for both web and phone view -->
+  <div class="sidebar" id="sidebar">
+    <img src="images/logo.png" class="logo" />
     <a href="dashboard.html" class="nav-item">
-      <img src="images/dashboard.png">
+      <img src="images/dashboard.png" />
       Dashboard
     </a>
     <a href="mymeals.html" class="nav-item">
-        <img src="images/meals.png">
-        My Meals
-      </a>
-      
+      <img src="images/meals.png" />
+      My Meals
+    </a>
     <a href="shoppinglist.html" class="nav-item">
-      <img src="images/shopping.png">
+      <img src="images/shopping.png" />
       Shopping List
     </a>
     <a href="settings.html" class="nav-item active">
-      <img src="images/settings.png">
+      <img src="images/settings.png" />
       Settings
     </a>
     <a href="/logout" class="nav-item logout">
-      <img src="images/logout.png">
+      <img src="images/logout.png" />
       Log Out
     </a>
   </div>
 
-  <!-- Main -->
-  <div class="main">
+  <!-- main content -->
+  <div class="main" id="main">
     <div class="top-bar">
       <h1>MealPal</h1>
       <div class="top-bar-icons">
-        <img src="images/notifications.png" class="icon" alt="Notifications">
-        <img src="images/profile.png" class="icon" alt="Profile">
+        <img src="images/notifications.png" class="icon" alt="Notifications" />
+        <img src="images/profile.png" class="icon" alt="Profile" />
       </div>
     </div>
 
-    <!-- Placeholder Title -->
     <div class="section-title">Settings</div>
 
-    <div class="settings-tabs">
-      <button class="tab active">Edit Profile</button>
-      <button class="tab">Account Information</button>
-      <button class="tab">Meal Plan Preferences</button>
-      <button class="tab">Privacy and Security</button>
-    </div>
-    
-    <div class="settings-section">
-      <!-- Profile Settings -->
-      <div class="section-box">
-        <h3>Profile Settings</h3>
-        <div class="profile-pic">
-          <img src="images/profile.png" alt="User Icon">
-          <button class="change-btn">Change Icon</button>
-        </div>
-        <div class="input-group">
-          <label>Name</label>
-          <input type="text" placeholder="User's Name">
-        </div>
-        <div class="input-group">
-          <label>Age</label>
-          <input type="text" placeholder="User's Age">
-        </div>
-      </div>
-    
-      <!-- Account Information -->
-      <div class="section-box">
-        <h3>Account Information</h3>
-        <div class="input-group">
-          <label>Email</label>
-          <input type="email" value="example@email.com">
-        </div>
-        <div class="input-group">
-          <label>Password</label>
-          <input type="password" value="********">
-        </div>
-        <div class="input-group">
-          <label>Linked Accounts</label>
-          <input type="text" value="example@email.com">
-        </div>
-      </div>
-    
-      <!-- Meal Plan Preferences -->
-      <div class="section-box">
-        <h3>Meal Plan Preferences</h3>
-        <div class="tag-section">
-          <p>Ingredient Allergies</p>
-          <div class="tags">
-            <span class="tag">Dairy</span>
-            <span class="tag">Nuts</span>
-            <span class="tag">Gluten</span>
-            <!-- Add more -->
-          </div>
-        </div>
-        <div class="tag-section">
-          <p>Diet Routines</p>
-          <div class="tags">
-            <span class="tag">Vegan</span>
-            <span class="tag">Paleo</span>
-            <span class="tag">Keto</span>
-          </div>
-        </div>
-        <div class="tag-section">
-          <p>Fitness Training</p>
-          <div class="tags">
-            <span class="tag">Strength</span>
-            <span class="tag">Mobility</span>
-            <span class="tag">Endurance</span>
-          </div>
-        </div>
-      </div>
-    
-      <!-- Privacy and Security -->
-      <div class="section-box">
-        <h3>Privacy and Security</h3>
-        <div class="input-group">
-          <label>Delete Account</label>
-          <input type="password" placeholder="Re-enter your password to continue">
-        </div>
-      </div>
-    </div>
-    
+    <!-- MAIN STUFFS GO HERE -->
 
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const toggleBtn = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('show');
+    });
+  </script>
 </body>
 </html>

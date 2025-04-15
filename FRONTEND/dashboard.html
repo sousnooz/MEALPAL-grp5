@@ -1,289 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MealPal</title>
   <link rel="icon" type="image/png" href="images/logo.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      margin: 0;
-      font-family: 'Century Gothic', sans-serif;
-      background-color: #ffffff;
-      display: flex;
-      color: #495733;
-    }
+    margin: 0;
+    font-family: 'Century Gothic', sans-serif;
+    background-color: #ffffff;
+    color: #495733;
+  }
 
-    .top-bar h1 {
-      font-size: 20px;
-      font-weight: normal;
-      margin: 0;
-    }
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 320px;
+    background-color: #e3f8c7;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-sizing: border-box;
+    z-index: 1050;
+    transition: transform 0.3s ease;
+  }
 
+  .sidebar.hide {
+    transform: translateX(-100%);
+  }
+
+  .logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 40px;
+    object-fit: contain;
+    border-radius: 20px;
+  }
+
+  .nav-item {
+    width: 100%;
+    margin: 10px 0;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 24px;
+    text-decoration: none;
+    color: #495733;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  .nav-item img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav-item:hover,
+  .nav-item.active {
+    background-color: #ffffff;
+    font-weight: bold;
+  }
+
+  .main {
+    padding: 20px;
+    margin-left: 320px;
+    transition: margin-left 0.3s ease;
+  }
+
+  .main.shifted {
+    margin-left: 0;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .top-bar h1 {
+    font-size: 25px;
+    font-weight: normal;
+    margin: 0;
+  }
+
+  .top-bar-icons {
+    display: flex;
+    align-items: center;
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+    margin-left: 15px;
+    cursor: pointer;
+  }
+
+  .section-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  .hamburger {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+    background: #e3f8c7;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
     .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 250px;
-      background-color: #e3f8c7;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border-top-right-radius: 20px;
-      border-bottom-right-radius: 20px;
-      box-sizing: border-box;
-      z-index: 1000;
+      transform: translateX(-100%);
     }
 
-    .logo {
-      width: 100px;
-      height: 100px;
-      padding: 30px 20px;
-      object-fit: contain;
-      border-radius: 20px;
-      margin-bottom: 40px;
-    }
-
-    .nav-item {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      margin: 10px 0;
-      padding: 20px 20px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      text-decoration: none;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-      overflow: hidden;
-      color: #495733;
-    }
-    .nav-item img {
-      width: 20px;
-      height: 20px;
-      padding: 10px 10px;
-      object-fit: contain;
-    }
-
-    .nav-item::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 10px;
-      transform: translateY(-50%);
-      width: calc(100% - 20px);
-      height: 120%;
-      background-color: #ffffff;
-      border-radius: 12px;
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .nav-item:hover::before,
-    .nav-item.active::before {
-      opacity: 1;
-    }
-
-    .nav-item:hover,
-    .nav-item.active {
-      background-color: #ffffff;
-      font-weight: bold;
-    }
-
-    .logout {
-      margin-top: auto;
-      color: #bb4444;
+    .sidebar.show {
+      transform: translateX(0);
     }
 
     .main {
-      margin-left: 250px;
-      padding: 30px;
-      flex-grow: 1;
-      width: calc(100% - 250px);
-      box-sizing: border-box;
+      margin-left: 0;
     }
 
-    .header-section {
-      margin-bottom: 30px;
+    .hamburger {
+      display: block;
     }
+  }
 
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 15px;
-      margin-bottom: 15px;
-    }
+  .meals {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    background-color: #e9f9d8;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+  }
 
-    .top-bar-icons {
-      display: flex;
-      align-items: center;
-    }
+  .meals::-webkit-scrollbar {
+    height: 10px;
+  }
 
-    .icon {
-      width: 30px;
-      height: 30px;
-      margin-left: 15px;
-      object-fit: contain;
-      cursor: pointer;
-    }
+  .meals::-webkit-scrollbar-thumb {
+    background-color: #d9d9d9;
+    border-radius: 10px;
+  }
 
-    .section-title {
-      font-size: 28px;
-      font-weight: bold;
-      margin-top: 30px;
-      margin-bottom: 10px;
-    }
+  .meal-card {
+    min-width: 300px;
+    background-color: rgb(255, 255, 255);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
 
-    .meals {
-      display: flex;
-      overflow-x: auto;
-      gap: 20px;
-      background-color: #e9f9d8;
-      padding: 20px;
-      border-radius: 20px;
-      margin-bottom: 30px;
-    }
+  .meal-card:hover {
+    transform: translateY(-5px);
+  }
 
-    .meals::-webkit-scrollbar {
-      height: 10px;
-    }
+  .meal-card img {
+    width: 100%;
+    border-radius: 15px;
+    height: 120px;
+    object-fit: cover;
+  }
 
-    .meals::-webkit-scrollbar-thumb {
-      background-color: #d9d9d9;
-      border-radius: 10px;
-    }
+  .meal-card h3 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+  }
 
-    .meal-card {
-      min-width: 300px;
-      background-color: rgb(255, 255, 255);
-      padding: 70px 70px;
-      border-radius: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
+  .meal-card p {
+    font-size: 14px;
+    margin: 0;
+  }
 
-    .meal-card:hover {
-      transform: translateY(-5px);
-    }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
 
-    .meal-card img {
-      width: 100%;
-      border-radius: 15px;
-      height: 120px;
-      object-fit: cover;
-    }
+  .modal-content {
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 60%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    color: #495733;
+  }
 
-    .meal-card h3 {
-      margin: 10px 0 5px;
-      font-size: 18px;
-    }
+  .close {
+    color: #d9d9d9;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
 
-    .meal-card p {
-      font-size: 14px;
-      margin: 0;
-    }
-
-    .activities {
-      font-size: 14px;
-    }
-
-    .activities p {
-      margin: 5px 0;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.4);
-    }
-
-    .modal-content {
-      background-color: #ffffff;
-      margin: 10% auto;
-      padding: 20px;
-      border-radius: 15px;
-      width: 60%;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      color: #495733;
-    }
-
-    .close {
-      color: #d9d9d9;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .close:hover {
-      color: #495733;
-    }
-  </style>
+  .close:hover {
+    color: #495733;
+  }
+</style>
 </head>
 <body>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <img src="images/logo.png" class="logo">
+  <!-- hamburger menu button for phone view -->
+  <button class="hamburger" id="menu-toggle">
+    ☰
+  </button>
+
+  <!-- side bar for both web and phone view -->
+  <div class="sidebar" id="sidebar">
+    <img src="images/logo.png" class="logo" />
     <a href="dashboard.html" class="nav-item active">
-      <img src="images/dashboard.png">
+      <img src="images/dashboard.png" />
       Dashboard
     </a>
     <a href="mymeals.html" class="nav-item">
-      <img src="images/meals.png">
+      <img src="images/meals.png" />
       My Meals
     </a>
     <a href="shoppinglist.html" class="nav-item">
-      <img src="images/shopping.png">
+      <img src="images/shopping.png" />
       Shopping List
     </a>
     <a href="settings.html" class="nav-item">
-      <img src="images/settings.png">
+      <img src="images/settings.png" />
       Settings
     </a>
     <a href="/logout" class="nav-item logout">
-      <img src="images/logout.png">
+      <img src="images/logout.png" />
       Log Out
     </a>
   </div>
 
-  <!-- Main Dashboard -->
-  <div class="main">
-    <div class="header-section">
-      <div class="top-bar">
-        <h1>MealPal</h1>
-        <div class="top-bar-icons">
-          <img src="images/notifications.png" class="icon" onclick="openNotificationModal()">
-          <img src="images/profile.png" class="icon">
-        </div>
+  <!-- main content -->
+  <div class="main" id="main">
+    <div class="top-bar">
+      <h1>MealPal</h1>
+      <div class="top-bar-icons">
+        <img src="images/notifications.png" class="icon" alt="Notifications" />
+        <img src="images/profile.png" class="icon" alt="Profile" />
       </div>
-      <div class="section-title" id="welcome-title">Ready to Eat, User?</div>
     </div>
+
+    <div class="section-title" id="welcome-title">Ready to Eat, User?</div>
 
     <div class="meals" id="meals-container"></div>
 
-    <div class="section-title">Recent Activities</div>
-    <div class="activities">
-      <p><em>not sure abt this but it will look empty without smt here</em></p>
-      <p>1 day ago</p>
-    </div>
   </div>
 
-  <!-- Meal Modal -->
+  <!-- meal modal -->
   <div id="mealModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
@@ -292,29 +292,28 @@
     </div>
   </div>
 
-  <!-- Notification Modal -->
-  <div id="notificationModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeNotificationModal()">&times;</span>
-      <h2>Recent Notifications</h2>
-      <div id="notificationContent">
-        <!-- Dynamic notifications here -->
-      </div>
-    </div>
-  </div>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Hamburger toggle
+    const toggleBtn = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+  
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('show');
+    });
+  
+    // Dynamic name
     const userName = "Alex";
     document.getElementById("welcome-title").textContent = `Ready to Eat, ${userName}?`;
-
+  
     const userPreferences = {
       diet: "keto",
       training: "bulking",
       allergies: ["peanuts"]
     };
-
-    const fallbackImage = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAy..."; // placeholder
-
+  
+    const fallbackImage = "data:image/png;base64,..."; // your fallback base64
+  
     const mealDatabase = [
       {
         type: "Breakfast",
@@ -342,25 +341,11 @@
         dish_name: "Zucchini Noodles & Meatballs",
         ingredients: "Zucchini, Ground Beef, Parmesan",
         image_url: "https://www.kitchensanctuary.com/wp-content/uploads/2020/02/Zucchini-Meatballs-FEAT-2.jpg"
-      },
-      {
-        type: "Snack",
-        diet: "keto",
-        training: "bulking",
-        allergens: [],
-        dish_name: "Avocado Deviled Eggs",
-        ingredients: "Avocado, Eggs, Lime",
-        image_url: "https://www.delish.com/cooking/recipe-ideas/a19665918/avocado-deviled-eggs-recipe/"
       }
     ];
-
-    const activityDatabase = [
-      { timestamp: "2 hours ago", message: "You added 'Keto Egg Muffins' to your meal plan." },
-      { timestamp: "1 day ago", message: "You updated your dietary preferences to Keto." },
-      { timestamp: "3 days ago", message: "You marked 'Grilled Chicken Bowl' as favorite." }
-    ];
-
+  
     const mealsContainer = document.getElementById("meals-container");
+  
     mealDatabase.forEach(meal => {
       if (
         meal.diet === userPreferences.diet &&
@@ -381,42 +366,16 @@
         mealsContainer.appendChild(card);
       }
     });
-
+  
     function openModal(name, ingredients) {
       document.getElementById("modalMealName").innerText = name;
       document.getElementById("modalMealIngredients").innerText = ingredients;
       document.getElementById("mealModal").style.display = "block";
     }
-
+  
     function closeModal() {
       document.getElementById("mealModal").style.display = "none";
     }
-
-    function openNotificationModal() {
-      const container = document.getElementById("notificationContent");
-      container.innerHTML = "";
-
-      if (activityDatabase.length === 0) {
-        container.innerHTML = "<p><em>No recent activities.</em></p>";
-      } else {
-        activityDatabase.forEach(activity => {
-          const entry = document.createElement("p");
-          entry.innerHTML = `<strong>${activity.timestamp}</strong>: ${activity.message}`;
-          container.appendChild(entry);
-        });
-      }
-
-      document.getElementById("notificationModal").style.display = "block";
-    }
-
-    function closeNotificationModal() {
-      document.getElementById("notificationModal").style.display = "none";
-    }
-
-    window.addEventListener("click", function(event) {
-      if (event.target === document.getElementById("mealModal")) closeModal();
-      if (event.target === document.getElementById("notificationModal")) closeNotificationModal();
-    });
-  </script>
+  </script>  
 </body>
 </html>
