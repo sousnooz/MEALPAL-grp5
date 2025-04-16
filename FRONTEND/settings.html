@@ -18,7 +18,7 @@
       color: #495733;
     }
 
-    /* side navigation bar */
+    /* sidebar */
     .sidebar {
       position: fixed;
       top: 0;
@@ -79,6 +79,7 @@
       color: #bb4444;
     }
 
+    /* main */
     .main {
       margin-left: 320px;
       padding: 20px;
@@ -104,18 +105,6 @@
       margin: 0;
     }
 
-    .top-bar-icons {
-      display: flex;
-      align-items: center;
-    }
-
-    .icon {
-      width: 40px;
-      height: 40px;
-      margin-left: 15px;
-      cursor: pointer;
-    }
-
     .section-title {
       font-size: clamp(2rem, 2.5vw, 2rem);
       font-weight: bold;
@@ -123,7 +112,6 @@
       margin-bottom: 10px;
     }
 
-    /* hamburger button for phone view */
     .hamburger {
       display: none;
       position: fixed;
@@ -153,130 +141,287 @@
         display: block;
       }
     }
+
+    /* SETTINGS STYLING */
+    .card {
+      border: 2px solid #49573330;
+      border-radius: 20px;
+      background-color: #e7f6cc;
+      box-shadow: 0 2px 6px #00000010;
+    }
+
+    h5 {
+      font-weight: bold;
+      color: #495733;
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+    }
+
+    .btn-outline-secondary {
+      border-radius: 15px;
+      padding: 5px 15px;
+      font-weight: 500;
+      color: #495733;
+      border-color: #495733;
+    }
+
+    .btn-outline-secondary:hover {
+      background-color: #d4eec1;
+      color: #2f3c1e;
+    }
+
+    .badge {
+      border-radius: 15px;
+      padding: 8px 15px;
+      font-size: 14px;
+    }
+
+    .badge.bg-secondary {
+      background-color: #d3e8c5;
+      color: #495733;
+    }
+
+    .badge.bg-success {
+      background-color: #a3d9a5;
+    }
+
+    .badge.bg-info {
+      background-color: #c1e7ec;
+      color: #315c65;
+    }
+
+    .btn-danger {
+      border-radius: 20px;
+      padding: 10px 20px;
+    }
+
+    .nav-tabs .nav-link {
+      border-radius: 10px 10px 0 0;
+      background-color: #d2efbc;
+      color: #495733;
+      margin-right: 5px;
+    }
+
+    .nav-tabs .nav-link.active {
+      background-color: #ffffff;
+      border-color: #ccc #ccc #ffffff;
+      font-weight: bold;
+    }
+
+    .preference-group {
+  margin-bottom: 20px;
+}
+
+.preference-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.preference-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.preference-btn {
+  padding: 8px 20px;
+  border: 2px solid #495733;
+  border-radius: 999px;
+  background-color: white;
+  color: #495733;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.preference-btn.selected {
+  background-color: #495733;
+  color: white;
+}
+
   </style>
 </head>
 <body>
 
-  <!-- hamburger menu button for phone view -->
-  <button class="hamburger" id="menu-toggle">
-    ☰
-  </button>
+<!-- Hamburger button -->
+<button class="hamburger" id="menu-toggle">☰</button>
 
-  <!-- side bar for both web and phone view -->
-  <div class="sidebar" id="sidebar">
-    <img src="images/logo.png" class="logo" />
-    <a href="dashboard.html" class="nav-item">
-      <img src="images/dashboard.png" />
-      Dashboard
-    </a>
-    <a href="mymeals.html" class="nav-item">
-      <img src="images/meals.png" />
-      My Meals
-    </a>
-    <a href="shoppinglist.html" class="nav-item">
-      <img src="images/shopping.png" />
-      Shopping List
-    </a>
-    <a href="settings.html" class="nav-item active">
-      <img src="images/settings.png" />
-      Settings
-    </a>
-    <a href="/logout" class="nav-item logout">
-      <img src="images/logout.png" />
-      Log Out
-    </a>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <img src="images/logo.png" class="logo" />
+  <a href="dashboard.html" class="nav-item"><img src="images/dashboard.png" />Dashboard</a>
+  <a href="mymeals.html" class="nav-item"><img src="images/meals.png" />My Meals</a>
+  <a href="shoppinglist.html" class="nav-item"><img src="images/shopping.png" />Shopping List</a>
+  <a href="settings.html" class="nav-item active"><img src="images/settings.png" />Settings</a>
+  <a href="/logout" class="nav-item logout"><img src="images/logout.png" />Log Out</a>
+</div>
+
+<!-- Main Content -->
+<div class="main" id="main">
+  <div class="top-bar mb-4">
+    <h1>MealPal</h1>
   </div>
 
-  <!-- main content -->
-  <div class="main" id="main">
-    <div class="top-bar">
-      <h1>MealPal</h1>
-      <div class="top-bar-icons">
-        <img src="images/notifications.png" class="icon" alt="Notifications" />
-        <img src="images/profile.png" class="icon" alt="Profile" />
-      </div>
-    </div>
+  <div class="section-title">Settings</div>
 
-    <div class="section-title">Settings</div>
+  <!-- Tabs -->
+  <ul class="nav nav-tabs mb-4" id="settingsTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">Edit Profile</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab">Account Information</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="mealplan-tab" data-bs-toggle="tab" data-bs-target="#mealplan" type="button" role="tab">Meal Plan Preferences</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="privacy-tab" data-bs-toggle="tab" data-bs-target="#privacy" type="button" role="tab">Privacy and Security</button>
+    </li>
+  </ul>
 
-    <!-- Profile Settings -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <h5 class="card-title">Profile Settings</h5>
-        <p class="card-text">Update your profile details.</p>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit</button>
-      </div>
-    </div>
-
-    <!-- Account Info -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <h5 class="card-title">Account Info</h5>
-        <p class="card-text">Manage your account details and preferences.</p>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAccountModal">Edit</button>
-      </div>
-    </div>
-
-    <!-- Meal Plan Preferences -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <h5 class="card-title">Meal Plan Preferences</h5>
-        <p class="card-text">Set your meal preferences and dietary restrictions.</p>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editMealPlanModal">Edit</button>
-      </div>
-    </div>
-
-    <!-- Privacy/Security -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <h5 class="card-title">Privacy & Security</h5>
-        <p class="card-text">Manage your privacy settings and security options.</p>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editPrivacyModal">Edit</button>
-      </div>
-    </div>
-
-    <!-- Modals for editing -->
-    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="tab-content" id="settingsTabContent">
+    <!-- Edit Profile -->
+    <div class="tab-pane fade show active" id="profile" role="tabpanel">
+      <div class="card p-4 mb-4">
+        <h5>Profile Settings</h5>
+        <div class="d-flex align-items-center mb-3">
+          <img src="images/profile.png" class="rounded-circle me-3" width="60" height="60" alt="Profile Icon">
+          <button class="btn btn-outline-secondary">Change Icon</button>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" placeholder="User's Name">
           </div>
-          <div class="modal-body">
-            <form>
-              <!-- Profile fields here -->
-              <div class="mb-3">
-                <label for="profileName" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="profileName" placeholder="Enter your full name">
-              </div>
-              <div class="mb-3">
-                <label for="profileEmail" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="profileEmail" placeholder="Enter your email">
-              </div>
-              <!-- Add more fields as needed -->
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save Changes</button>
+          <div class="col-md-6">
+            <label class="form-label">Age</label>
+            <input type="number" class="form-control" placeholder="User's Age">
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Additional modals for Account Info, Meal Plan, and Privacy can follow the same pattern -->
-    
+    <!-- Account Info -->
+    <div class="tab-pane fade" id="account" role="tabpanel">
+      <div class="card p-4 mb-4">
+        <h5>Account Information</h5>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" placeholder="example@email.com">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" placeholder="********">
+          </div>
+          <div class="col-12">
+            <label class="form-label">Linked Accounts</label>
+            <input type="text" class="form-control" placeholder="example@email.com">
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- Meal Plan Preferences -->
+<div class="tab-pane fade" id="mealplan" role="tabpanel">
+  <div class="card p-4 mb-4">
+    <h5>Meal Plan Preferences</h5>
+
+    <!-- Ingredient Allergies -->
+    <div class="preference-group">
+      <div class="preference-title">Ingredient Allergies</div>
+      <div class="preference-buttons" id="allergy-buttons">
+        <button class="preference-btn">None</button>
+        <button class="preference-btn">Gluten</button>
+        <button class="preference-btn">Dairy</button>
+        <button class="preference-btn">Egg</button>
+        <button class="preference-btn">Soy</button>
+        <button class="preference-btn">Peanut</button>
+        <button class="preference-btn">Milk</button>
+        <button class="preference-btn">Wheat</button>
+        <button class="preference-btn">Fish</button>
+      </div>
+    </div>
+
+    <!-- Diet Routines -->
+    <div class="preference-group">
+      <div class="preference-title">Diet Routines</div>
+      <div class="preference-buttons" id="diet-buttons">
+        <button class="preference-btn">None</button>
+        <button class="preference-btn">Vegan</button>
+        <button class="preference-btn">Vegetarian</button>
+        <button class="preference-btn">Paleo</button>
+        <button class="preference-btn">Keto</button>
+        <button class="preference-btn">Intermittent Fasting</button>
+      </div>
+    </div>
+
+    <!-- Fitness Training -->
+    <div class="preference-group">
+      <div class="preference-title">Fitness Training</div>
+      <div class="preference-buttons" id="fitness-buttons">
+        <button class="preference-btn">None</button>
+        <button class="preference-btn">Strength</button>
+        <button class="preference-btn">Cardio</button>
+        <button class="preference-btn">Mobility</button>
+        <button class="preference-btn">Hypertrophy</button>
+      </div>
+    </div>
   </div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    const toggleBtn = document.getElementById('menu-toggle');
-    const sidebar = document.getElementById('sidebar');
+    
 
-    toggleBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('show');
+    <!-- Privacy and Security -->
+    <div class="tab-pane fade" id="privacy" role="tabpanel">
+      <div class="card p-4 mb-4">
+        <h5>Privacy and Security</h5>
+        <label class="form-label">Delete Account</label>
+        <input type="password" class="form-control mb-3" placeholder="Re-enter your password to confirm">
+        <button class="btn btn-danger">Delete Account</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const toggleBtn = document.getElementById('menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+  toggleBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('show');
+  });
+  
+  function setupSelectableButtons(containerId) {
+    const container = document.getElementById(containerId);
+    const buttons = container.querySelectorAll(".preference-btn");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        if (button.textContent === "None") {
+          buttons.forEach(btn => btn.classList.remove("selected"));
+          button.classList.add("selected");
+        } else {
+          button.classList.toggle("selected");
+          buttons[0].classList.remove("selected"); // Deselect "None"
+        }
+      });
     });
-  </script>
+  }
+
+  // Apply to each preference category
+  setupSelectableButtons("allergy-buttons");
+  setupSelectableButtons("diet-buttons");
+  setupSelectableButtons("fitness-buttons");
+</script>
+
+  
+</script>
 </body>
 </html>
