@@ -296,7 +296,7 @@
         <div class="row g-3">
           <div class="col-md-6">
             <label class="form-label">Name</label>
-            <input type="text" class="form-control" placeholder="User's Name">
+            <input type="text" class="form-control" placeholder="User's Name"value="Samantha">
           </div>
           <div class="col-md-6">
             <label class="form-label">Age</label>
@@ -316,11 +316,11 @@
         <div class="row g-3">
           <div class="col-md-6">
             <label class="form-label">Email</label>
-            <input type="email" class="form-control" placeholder="example@email.com">
+            <input type="email" class="form-control" placeholder="example@email.com" value="samanthadgrodil@gmail.com">
           </div>
           <div class="col-md-6">
             <label class="form-label">Password</label>
-            <input type="password" class="form-control" placeholder="********">
+            <input type="password" class="form-control" placeholder="********" value="password123">
           </div>
           <div class="col-12">
           </div>
@@ -454,6 +454,18 @@
   alert("Settings have been updated successfully!");
 });
 
+// Auto-select default preferences on load
+window.addEventListener('DOMContentLoaded', () => {
+  // Allergy: Peanut
+  document.querySelector('#allergy-buttons .preference-btn:nth-child(6)').classList.add('selected');
+
+  // Diet: None
+  document.querySelector('#diet-buttons .preference-btn:nth-child(1)').classList.add('selected');
+
+  // Fitness: Strength and Cardio
+  document.querySelector('#fitness-buttons .preference-btn:nth-child(2)').classList.add('selected');
+  document.querySelector('#fitness-buttons .preference-btn:nth-child(3)').classList.add('selected');
+});
 
   
 </script>

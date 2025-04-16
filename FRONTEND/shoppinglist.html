@@ -382,25 +382,6 @@
       sidebar.classList.toggle('show');
     });
   
-  
-    const recommendedWeeks = [
-      {
-        range: "April 13 - April 19",
-        image: "images/vegan-stir-fry.jpg",
-        ingredients: ["broccoli", "carrots", "bell pepper", "tofu", "soy sauce", "garlic"]
-      },
-      {
-        range: "April 20 - April 26",
-        image: "images/quinoa-salad.jpg",
-        ingredients: ["quinoa", "chickpeas", "cucumber", "tomato", "lemon juice", "olive oil"]
-      },
-      {
-        range: "April 27 - May 3",
-        image: "images/gluten-free-pasta.jpg",
-        ingredients: ["gluten-free pasta", "tomato sauce", "basil", "zucchini", "olive oil"]
-      }
-    ];
-  
     const mealsContainer = document.getElementById("meals-container");
     const modal = document.getElementById("itemModal");
     const modalText = document.getElementById("modalText");
@@ -409,20 +390,29 @@
     closeModal.onclick = () => modal.style.display = "none";
     window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; }
   
-    recommendedWeeks.forEach((week, index) => {
-      const card = document.createElement("div");
-      card.className = "meal-card";
-      card.innerHTML = `
-        <img src="${week.image}" alt="Meal for ${week.range}">
-        <h3>${week.range}</h3>
-        <p>View shopping list</p>
-      `;
-      card.onclick = () => openModalWithChecklist(index);
-      mealsContainer.appendChild(card);
-    });
+    // Only this week is available
+    const currentWeek = {
+      range: "April 13 - April 19",
+      image: "images/vegan-stir-fry.jpg",
+      ingredients: [
+        "broccoli", "carrots", "bell pepper", "tofu", "soy sauce", "garlic",
+        "brown rice", "ginger", "onion", "snap peas", "mushrooms", "green onions",
+        "olive oil", "red pepper flakes", "cabbage", "lime", "cilantro", "sesame seeds",
+        "rice vinegar", "cornstarch", "vegetable stock"
+      ]
+    };
   
-    function openModalWithChecklist(weekIndex) {
-      const week = recommendedWeeks[weekIndex];
+    const card = document.createElement("div");
+    card.className = "meal-card";
+    card.innerHTML = `
+      <img src="${currentWeek.image}" alt="Meal for ${currentWeek.range}">
+      <h3>${currentWeek.range}</h3>
+      <p>View shopping list</p>
+    `;
+    card.onclick = () => openModalWithChecklist(currentWeek);
+    mealsContainer.appendChild(card);
+  
+    function openModalWithChecklist(week) {
       modalText.innerHTML = `<h4>Shopping List for ${week.range}</h4>`;
   
       week.ingredients.forEach(ingredient => {
@@ -455,6 +445,7 @@
       modal.style.display = "block";
     }
   </script>
+  
   
 </body>
 </html> ```

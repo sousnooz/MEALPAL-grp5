@@ -248,7 +248,7 @@
       <img src="images/settings.png" />
       Settings
     </a>
-    <a href="loginAcc.html"" class="nav-item logout">
+    <a href="loginAcc.html" class="nav-item logout">
       <img src="images/logout.png" />
       Log Out
     </a>
@@ -260,36 +260,114 @@
     </div>
 
     <div class="section-title">Your Meals This Week!</div>
-    <div class="meals">
-      <div class="meal-card">
-        <img src="https://www.asweetpeachef.com/wp-content/uploads/2021/08/Meal-Prep-Bowls-Grilled-Chicken.jpg" alt="Chicken Bowl">
-        <h3>Lunch</h3>
-        <p><strong>Grilled Chicken Bowl</strong></p>
-        <p><em>Chicken, Avocado, Spinach</em></p>
-        <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
-        <button class="edit-btn" onclick="openViewModal({
-          name: 'Grilled Chicken Bowl',
-          image: 'https://www.asweetpeachef.com/wp-content/uploads/2021/08/Meal-Prep-Bowls-Grilled-Chicken.jpg',
-          type: 'Lunch',
-          ingredients: ['Chicken', 'Avocado', 'Spinach']
-        })">View</button>
-      </div>
-
-      <div class="meal-card">
-        <img src="https://www.kitchensanctuary.com/wp-content/uploads/2020/02/Zucchini-Meatballs-FEAT-2.jpg" alt="Zucchini Meatballs">
-        <h3>Dinner</h3>
-        <p><strong>Zucchini Noodles & Meatballs</strong></p>
-        <p><em>Zucchini, Ground Beef, Parmesan</em></p>
-        <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
-        <button class="edit-btn" onclick="openViewModal({
-          name: 'Zucchini Noodles & Meatballs',
-          image: 'https://www.kitchensanctuary.com/wp-content/uploads/2020/02/Zucchini-Meatballs-FEAT-2.jpg',
-          type: 'Dinner',
-          ingredients: ['Zucchini', 'Ground Beef', 'Parmesan']
-        })">View</button>
-      </div>
-    </div>
+<div class="meals">
+  <!-- Monday -->
+  <div class="meal-card">
+    <h3>Monday - Breakfast</h3>
+    <p><strong>Avocado Toast</strong></p>
+    <p><em>Bread, Avocado, Eggs</em></p>
+    <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
+    <button class="edit-btn" onclick="openViewModal({
+      name: 'Avocado Toast',
+      type: 'Breakfast',
+      ingredients: ['Bread', 'Avocado', 'Eggs']
+    })">View</button>
   </div>
+  <div class="meal-card">
+    <h3>Monday - Lunch</h3>
+    <p><strong>Grilled Chicken Bowl</strong></p>
+    <p><em>Chicken, Avocado, Spinach</em></p>
+    <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
+    <button class="edit-btn" onclick="openViewModal({
+      name: 'Grilled Chicken Bowl',
+      type: 'Lunch',
+      ingredients: ['Chicken', 'Avocado', 'Spinach']
+    })">View</button>
+  </div>
+  <div class="meal-card">
+    <h3>Monday - Dinner</h3>
+    <p><strong>Zucchini Noodles & Meatballs</strong></p>
+    <p><em>Zucchini, Ground Beef, Parmesan</em></p>
+    <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
+    <button class="edit-btn" onclick="openViewModal({
+      name: 'Zucchini Noodles & Meatballs',
+      type: 'Dinner',
+      ingredients: ['Zucchini', 'Ground Beef', 'Parmesan']
+    })">View</button>
+  </div>
+
+  <!-- Tuesday -->
+  <div class="meal-card">
+    <h3>Tuesday - Breakfast</h3>
+    <p><strong>Smoothie Bowl</strong></p>
+    <p><em>Berries, Banana, Granola</em></p>
+    <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
+    <button class="edit-btn" onclick="openViewModal({
+      name: 'Smoothie Bowl',
+      type: 'Breakfast',
+      ingredients: ['Berries', 'Banana', 'Granola']
+    })">View</button>
+  </div>
+  <div class="meal-card">
+    <h3>Tuesday - Lunch</h3>
+    <p><strong>Chickpea Salad</strong></p>
+    <p><em>Chickpeas, Cucumber, Feta</em></p>
+    <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
+    <button class="edit-btn" onclick="openViewModal({
+      name: 'Chickpea Salad',
+      type: 'Lunch',
+      ingredients: ['Chickpeas', 'Cucumber', 'Feta']
+    })">View</button>
+  </div>
+  <div class="meal-card">
+    <h3>Tuesday - Dinner</h3>
+    <p><strong>Veggie Burger</strong></p>
+    <p><em>Black Bean Patty, Lettuce, Tomato</em></p>
+    <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
+    <button class="edit-btn" onclick="openViewModal({
+      name: 'Veggie Burger',
+      type: 'Dinner',
+      ingredients: ['Black Bean Patty', 'Lettuce', 'Tomato']
+    })">View</button>
+  </div>
+
+  <!-- Wednesday -->
+  <div class="meal-card">
+    <h3>Wednesday - Breakfast</h3>
+    <p><strong>Scrambled Eggs & Toast</strong></p>
+    <p><em>Eggs, Whole Grain Bread, Butter</em></p>
+    <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
+    <button class="edit-btn" onclick="openViewModal({
+      name: 'Scrambled Eggs & Toast',
+      type: 'Breakfast',
+      ingredients: ['Eggs', 'Whole Grain Bread', 'Butter']
+    })">View</button>
+  </div>
+  <div class="meal-card">
+    <h3>Wednesday - Lunch</h3>
+    <p><strong>Chicken Caesar Salad</strong></p>
+    <p><em>Romaine, Grilled Chicken, Croutons</em></p>
+    <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
+    <button class="edit-btn" onclick="openViewModal({
+      name: 'Chicken Caesar Salad',
+      type: 'Lunch',
+      ingredients: ['Romaine', 'Grilled Chicken', 'Croutons']
+    })">View</button>
+  </div>
+  <div class="meal-card">
+    <h3>Wednesday - Dinner</h3>
+    <p><strong>Baked Ziti</strong></p>
+    <p><em>Pasta, Marinara, Mozzarella</em></p>
+    <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
+    <button class="edit-btn" onclick="openViewModal({
+      name: 'Baked Ziti',
+      type: 'Dinner',
+      ingredients: ['Pasta', 'Marinara', 'Mozzarella']
+    })">View</button>
+  </div>
+
+  <!-- Repeat the same pattern for Thursday to Sunday -->
+</div>
 
   <!-- Edit Modal -->
   <div id="editModal" style="

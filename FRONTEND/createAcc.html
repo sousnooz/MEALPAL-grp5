@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="images/logo.png" />
   <title>Create an Account</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -157,113 +157,21 @@
       cursor: pointer;
     }
 
-    /* Modal Styling */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.4);
+    /* Loading Spinner */
+    .loading-spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #495733;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 2s linear infinite;
+      margin-left: 10px;
+      display: none; /* Hide spinner by default */
     }
 
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 30px;
-      border-radius: 12px;
-      width: 80%;
-      max-width: 500px;
-      color: #495733;
-      position: relative;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .close {
-      position: absolute;
-      top: 12px;
-      right: 20px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #777;
-      cursor: pointer;
-    }
-
-    /* ------------------ MEDIA QUERIES ------------------ */
-
-    @media (max-width: 599px) {
-      .hamburger {
-        display: block;
-      }
-
-      nav {
-        display: none;
-        flex-direction: column;
-        background: white;
-        position: absolute;
-        top: 60px;
-        right: 10px;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      nav.show {
-        display: flex;
-      }
-
-      header {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .form-box {
-        padding: 30px 20px;
-        border-radius: 20px;
-      }
-
-      .modal-content {
-        width: 90%;
-        margin: 30% auto;
-      }
-    }
-
-    @media (min-width: 600px) and (max-width: 1024px) {
-      header {
-        width: 95%;
-      }
-
-      nav {
-        gap: 20px;
-      }
-
-      .form-box {
-        padding: 40px 30px;
-        max-width: 500px;
-      }
-
-      .modal-content {
-        width: 85%;
-        margin: 15% auto;
-      }
-    }
-
-    @media (min-width: 1025px) {
-      header {
-        width: 80%;
-      }
-
-      .form-box {
-        max-width: 450px;
-      }
-
-      .modal-content {
-        max-width: 500px;
-      }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -272,13 +180,6 @@
     <div class="logo">
       <img src="images/logo.png" class="logo">
     </div>
-
-    <div class="hamburger" id="hamburger">&#9776;</div>
-
-    <nav id="navMenu">
-      <a href="createAcc.html">Sign Up</a>
-      <a href="loginAcc.html">Sign In</a>
-    </nav>
   </header>
 
   <main>
@@ -291,84 +192,50 @@
           <input type="password" id="password" placeholder="Password" required />
           <span class="show-password" id="togglePassword">&#128065;</span>
         </div>
-        <button type="submit" class="nextBtn">
-          <span class="nextBtnText">Sign Up</span>
+        <button type="submit" class="nextBtn" id="submitBtn">
+          <span class="nextBtnText" id="submitText">Sign Up</span>
+          <div id="loadingSpinner" class="loading-spinner"></div>
         </button>
       </form>
 
       <footer>
-        By creating an account, you agree to MealPal's 
-        <a href="#" onclick="openModal('termsModal')">Terms of Services</a> and 
-        <a href="#" onclick="openModal('privacyModal')">Privacy Policy</a>.<br /><br />
         Already have an account? <a href="loginAcc.html">Sign In Now!</a>
       </footer>
     </div>
   </main>
 
-  <!-- Terms of Services Modal -->
-  <div id="termsModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal('termsModal')">&times;</span>
-      <h3>Terms of Services</h3>
-      <p>This is where your Terms of Services text will go.</p>
-    </div>
-  </div>
-
-  <!-- Privacy Policy Modal -->
-  <div id="privacyModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal('privacyModal')">&times;</span>
-      <h3>Privacy Policy</h3>
-      <p>This is where your Privacy Policy text will go.</p>
-    </div>
-  </div>
-
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const toggle = document.getElementById("togglePassword");
-      const passwordInput = document.getElementById("password");
-      const hamburger = document.getElementById("hamburger");
-      const navMenu = document.getElementById("navMenu");
-  
-      toggle.addEventListener("click", () => {
-        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-        passwordInput.setAttribute("type", type);
-      });
-  
-      hamburger.addEventListener("click", () => {
-        navMenu.classList.toggle("show");
-      });
-  
       const form = document.getElementById("signup-form");
+      const submitBtn = document.getElementById("submitBtn");
+      const submitText = document.getElementById("submitText");
+      const loadingSpinner = document.getElementById("loadingSpinner");
+
       form.addEventListener("submit", (e) => {
-        e.preventDefault();
-  
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value.trim();
-  
-        // Fake "successful signup"
-        alert("Account created successfully!");
-        window.location.href = "welcome.html";
+        e.preventDefault();  // Prevent default form submission
+
+        // Change button to loading state
+        submitText.style.display = "none";
+        loadingSpinner.style.display = "inline-block";
+
+        // Simulate a delay for the loading state (e.g., 2 seconds)
+        setTimeout(() => {
+          // Simulate checking credentials
+          const email = document.getElementById("email").value.trim();
+          const password = document.getElementById("password").value.trim();
+
+          if (email === "samanthadgrodil@gmail.com" && password === "password123") {
+            // Redirect to welcome.html after "loading" period
+            window.location.href = "welcome.html";
+          } else {
+            // If credentials don't match, reset loading state and display error (optional)
+            submitText.style.display = "block";
+            loadingSpinner.style.display = "none";
+            alert("Invalid credentials. Please try again.");
+          }
+        }, 2000);  // Adjust the delay time as needed
       });
     });
-  
-    function openModal(id) {
-      document.getElementById(id).style.display = 'block';
-    }
-  
-    function closeModal(id) {
-      document.getElementById(id).style.display = 'none';
-    }
-  
-    window.onclick = function(event) {
-      const modals = document.querySelectorAll('.modal');
-      modals.forEach(modal => {
-        if (event.target === modal) {
-          modal.style.display = 'none';
-        }
-      });
-    }
   </script>
-  
 </body>
 </html>
