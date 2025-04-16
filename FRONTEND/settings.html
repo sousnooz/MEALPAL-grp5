@@ -303,6 +303,9 @@
             <input type="number" class="form-control" placeholder="User's Age">
           </div>
         </div>
+        <div class="text-end mt-3">
+          <button id="updateSettingsBtn" class="btn btn-outline-secondary">Update Settings</button>
+        </div>
       </div>
     </div>
 
@@ -320,9 +323,10 @@
             <input type="password" class="form-control" placeholder="********">
           </div>
           <div class="col-12">
-            <label class="form-label">Linked Accounts</label>
-            <input type="text" class="form-control" placeholder="example@email.com">
           </div>
+        </div>
+        <div class="text-end mt-3">
+          <button id="updateSettingsBtn" class="btn btn-outline-secondary">Update Settings</button>
         </div>
       </div>
     </div>
@@ -372,6 +376,9 @@
         <button class="preference-btn">Hypertrophy</button>
       </div>
     </div>
+    <div class="text-end mt-3">
+      <button id="updateSettingsBtn" class="btn btn-outline-secondary">Update Settings</button>
+    </div>
   </div>
 </div>
 
@@ -384,8 +391,12 @@
         <label class="form-label">Delete Account</label>
         <input type="password" class="form-control mb-3" placeholder="Re-enter your password to confirm">
         <button class="btn btn-danger">Delete Account</button>
+        <div class="text-end mt-3">
+          <button id="updateSettingsBtn" class="btn btn-outline-secondary">Update Settings</button>
+        </div>
       </div>
     </div>
+    
   </div>
 </div>
 
@@ -418,7 +429,29 @@
   setupSelectableButtons("allergy-buttons");
   setupSelectableButtons("diet-buttons");
   setupSelectableButtons("fitness-buttons");
-</script>
+  document.getElementById("updateSettingsBtn").addEventListener("click", () => {
+  // Example: Grab values (you can expand this to grab more)
+  const name = document.querySelector('#profile input[placeholder="User\'s Name"]').value;
+  const age = document.querySelector('#profile input[placeholder="User\'s Age"]').value;
+  const email = document.querySelector('#account input[type="email"]').value;
+
+  // Gather selected preferences
+  function getSelected(containerId) {
+    return Array.from(document.querySelectorAll(`#${containerId} .preference-btn.selected`))
+                .map(btn => btn.textContent);
+  }
+
+  const allergies = getSelected("allergy-buttons");
+  const diets = getSelected("diet-buttons");
+  const fitness = getSelected("fitness-buttons");
+
+  // Simulate saving (replace with actual logic)
+  console.log("Settings Saved:");
+  console.log({ name, age, email, allergies, diets, fitness });
+
+  alert("Settings have been updated successfully!");
+});
+
 
   
 </script>
