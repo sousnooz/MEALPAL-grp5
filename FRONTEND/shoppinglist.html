@@ -198,11 +198,11 @@
 
     .meal-card h3 {
       margin: 10px 0 5px;
-      font-size: 18px;
+      font-size: 25px;
     }
 
     .meal-card p {
-      font-size: 14px;
+      font-size: 20px;
       margin: 0;
     }
 
@@ -331,7 +331,7 @@
   <!-- side bar for both web and phone view -->
   <div class="sidebar" id="sidebar">
     <img src="images/logo.png" class="logo" />
-    <a href="dashboard.html" class="nav-item active">
+    <a href="dashboard.html" class="nav-item ">
       <img src="images/dashboard.png" />
       Dashboard
     </a>
@@ -339,7 +339,7 @@
       <img src="images/meals.png" />
       My Meals
     </a>
-    <a href="shoppinglist.html" class="nav-item">
+    <a href="dashboard.html" class="nav-item active">
       <img src="images/shopping.png" />
       Shopping List
     </a>
@@ -359,11 +359,8 @@
       <h1>MealPal</h1>
     </div>
 
-    <div class="section-title" id="welcome-title">Ready to Eat, User?</div>
+    <div class="section-title" id="welcome-title">Your Shopping Lists</div>
     <div class="meals" id="meals-container"></div>
-
-    <div class="section-title">Your Shopping List Today!</div>
-    <div class="shopping-list" id="shopping-list-container"></div>
 
     <!-- Modal -->
 <div id="itemModal" class="modal">
@@ -376,89 +373,88 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
   <script>
-    // hamburger menu toggle 
     const toggleBtn = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
     toggleBtn.addEventListener('click', () => {
       sidebar.classList.toggle('show');
     });
-
-    // dynamic name for user (hardcoded muna raynao...)
-    const userName = "Alex";
-    document.getElementById("welcome-title").textContent = `Ready to Eat, ${userName}?`;
-
-    const userPreferences = { diet: 'vegan', allergies: ['gluten'] };
-
-    const recommendedMeals = [
-  {
-    name: "Vegan Stir Fry",
-    description: "A colorful mix of veggies with tofu in a savory sauce.",
-    image: "images/vegan-stir-fry.jpg",
-    ingredients: ["broccoli", "carrots", "bell pepper", "tofu", "soy sauce", "garlic"]
-  },
-  {
-    name: "Quinoa Salad",
-    description: "Nutritious quinoa with chickpeas and fresh veggies.",
-    image: "images/quinoa-salad.jpg",
-    ingredients: ["quinoa", "chickpeas", "cucumber", "tomato", "lemon juice", "olive oil"]
-  },
-  {
-    name: "Gluten-Free Pasta",
-    description: "Delicious pasta made from rice flour, perfect for gluten-free diets.",
-    image: "images/gluten-free-pasta.jpg",
-    ingredients: ["gluten-free pasta", "tomato sauce", "basil", "zucchini", "olive oil"]
-  }
-];
-
-const mealsContainer = document.getElementById("meals-container");
-const shoppingListContainer = document.getElementById("shopping-list-container");
-
-// Display meals
-recommendedMeals.forEach(meal => {
-  const card = document.createElement("div");
-  card.className = "meal-card";
-  card.innerHTML = `
-    <img src="${meal.image}" alt="${meal.name}">
-    <h3>${meal.name}</h3>
-    <p>${meal.description}</p>
-  `;
-  mealsContainer.appendChild(card);
-});
-
-// Compile all ingredients from the meals
-const allIngredients = recommendedMeals.flatMap(meal => meal.ingredients);
-const uniqueIngredients = [...new Set(allIngredients)];
-
-uniqueIngredients.forEach(ingredient => {
-  const item = document.createElement("label");
-  item.className = "shopping-list-item";
-
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-
-  const span = document.createElement("span");
-  span.textContent = ingredient;
-
-  checkbox.addEventListener("change", () => {
-    item.classList.toggle("checked", checkbox.checked);
-    // Save checkbox state
-    localStorage.setItem(`checked-${ingredient}`, checkbox.checked);
-  });
-
-  // Load checkbox state
-  const savedState = localStorage.getItem(`checked-${ingredient}`);
-  if (savedState === "true") {
-    checkbox.checked = true;
-    item.classList.add("checked");
-  }
-
-  item.appendChild(checkbox);
-  item.appendChild(span);
-  shoppingListContainer.appendChild(item);
-});
-
-
-</script>
+  
+  
+    const recommendedWeeks = [
+      {
+        range: "April 13 - April 19",
+        image: "images/vegan-stir-fry.jpg",
+        ingredients: ["broccoli", "carrots", "bell pepper", "tofu", "soy sauce", "garlic"]
+      },
+      {
+        range: "April 20 - April 26",
+        image: "images/quinoa-salad.jpg",
+        ingredients: ["quinoa", "chickpeas", "cucumber", "tomato", "lemon juice", "olive oil"]
+      },
+      {
+        range: "April 27 - May 3",
+        image: "images/gluten-free-pasta.jpg",
+        ingredients: ["gluten-free pasta", "tomato sauce", "basil", "zucchini", "olive oil"]
+      }
+    ];
+  
+    const mealsContainer = document.getElementById("meals-container");
+    const modal = document.getElementById("itemModal");
+    const modalText = document.getElementById("modalText");
+    const closeModal = document.querySelector(".close");
+  
+    closeModal.onclick = () => modal.style.display = "none";
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; }
+  
+    recommendedWeeks.forEach((week, index) => {
+      const card = document.createElement("div");
+      card.className = "meal-card";
+      card.innerHTML = `
+        <img src="${week.image}" alt="Meal for ${week.range}">
+        <h3>${week.range}</h3>
+        <p>View shopping list</p>
+      `;
+      card.onclick = () => openModalWithChecklist(index);
+      mealsContainer.appendChild(card);
+    });
+  
+    function openModalWithChecklist(weekIndex) {
+      const week = recommendedWeeks[weekIndex];
+      modalText.innerHTML = `<h4>Shopping List for ${week.range}</h4>`;
+  
+      week.ingredients.forEach(ingredient => {
+        const label = document.createElement("label");
+        label.className = "shopping-list-item";
+  
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+  
+        const span = document.createElement("span");
+        span.textContent = ingredient;
+  
+        const key = `checked-${week.range}-${ingredient}`;
+  
+        checkbox.addEventListener("change", () => {
+          label.classList.toggle("checked", checkbox.checked);
+          localStorage.setItem(key, checkbox.checked);
+        });
+  
+        if (localStorage.getItem(key) === "true") {
+          checkbox.checked = true;
+          label.classList.add("checked");
+        }
+  
+        label.appendChild(checkbox);
+        label.appendChild(span);
+        modalText.appendChild(label);
+      });
+  
+      modal.style.display = "block";
+    }
+  </script>
+  
 </body>
 </html> ```
