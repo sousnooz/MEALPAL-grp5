@@ -208,9 +208,10 @@
     }
 
     .nav-tabs .nav-link.active {
-      background-color: #ffffff;
-      border-color: #ccc #ccc #ffffff;
+      background-color: #495733;
+      border-color: #495733 #495733 #495733;
       font-weight: bold;
+      color: #fff;
     }
 
     .preference-group {
@@ -226,6 +227,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: flex-start;
 }
 
 .preference-btn {
@@ -397,7 +399,7 @@
   toggleBtn.addEventListener('click', () => {
     sidebar.classList.toggle('show');
   });
-  
+
   function setupSelectableButtons(containerId) {
     const container = document.getElementById(containerId);
     const buttons = container.querySelectorAll(".preference-btn");

@@ -95,9 +95,6 @@
       margin: 0;
     }
 
-   
-
-    /* hamburger button for phone view */
     .hamburger {
       display: none;
       position: fixed;
@@ -128,7 +125,6 @@
       }
     }
 
-
     .section-title {
       font-size: clamp(2rem, 2.5vw, 2rem);
       font-weight: bold;
@@ -153,6 +149,7 @@
       text-align: center;
       transition: transform 0.3s ease;
       cursor: pointer;
+      position: relative;
     }
 
     .meal-card:hover {
@@ -168,12 +165,65 @@
 
     .meal-card h3 {
       margin: 10px 0 5px;
-      font-size: 18px;
     }
 
     .meal-card p {
       font-size: 14px;
       margin: 0;
+    }
+
+    .edit-btn {
+      position: relative;
+      margin-top: 10px;
+      background-color: #b6e4a5;
+      border: none;
+      color: #2e3c1f;
+      padding: 5px 10px;
+      font-size: 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .edit-btn:hover {
+      background-color: #a3d68d;
+      transform: scale(1.05);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 500px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: black;
     }
   </style>
 </head>
@@ -216,12 +266,13 @@
         <h3>Lunch</h3>
         <p><strong>Grilled Chicken Bowl</strong></p>
         <p><em>Chicken, Avocado, Spinach</em></p>
-      </div>
-      <div class="meal-card">
-        <img src="https://www.kitchensanctuary.com/wp-content/uploads/2020/02/Zucchini-Meatballs-FEAT-2.jpg" alt="Zucchini Meatballs">
-        <h3>Dinner</h3>
-        <p><strong>Zucchini Noodles & Meatballs</strong></p>
-        <p><em>Zucchini, Ground Beef, Parmesan</em></p>
+        <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
+        <button class="edit-btn" onclick="openViewModal({
+          name: 'Grilled Chicken Bowl',
+          image: 'https://www.asweetpeachef.com/wp-content/uploads/2021/08/Meal-Prep-Bowls-Grilled-Chicken.jpg',
+          type: 'Lunch',
+          ingredients: ['Chicken', 'Avocado', 'Spinach']
+        })">View</button>
       </div>
 
       <div class="meal-card">
@@ -229,7 +280,77 @@
         <h3>Dinner</h3>
         <p><strong>Zucchini Noodles & Meatballs</strong></p>
         <p><em>Zucchini, Ground Beef, Parmesan</em></p>
+        <button class="edit-btn" onclick="openEditModal(this)">Edit</button>
+        <button class="edit-btn" onclick="openViewModal({
+          name: 'Zucchini Noodles & Meatballs',
+          image: 'https://www.kitchensanctuary.com/wp-content/uploads/2020/02/Zucchini-Meatballs-FEAT-2.jpg',
+          type: 'Dinner',
+          ingredients: ['Zucchini', 'Ground Beef', 'Parmesan']
+        })">View</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div id="editModal" style="
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;">
+    <div style="
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+      <h2>Edit Meal</h2>
+      <label>Meal Title:</label>
+      <input type="text" id="editTitle" class="form-control">
+      <label>Ingredients:</label>
+      <textarea id="editDesc" class="form-control" rows="3"></textarea>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+        <button class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+        <button class="btn btn-success" onclick="saveEdit()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Modal -->
+  <div id="viewModal" style="
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    text-align: left;
+    ">
+    <div style="
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: relative;">
+      <span class="close" onclick="closeViewModal()">&times;</span>
+      <h2 id="viewMealName">Meal Name</h2>
+      <img id="viewMealImage" src="" alt="Meal Image" style="width: 100%; border-radius: 10px;" />
+      <p><strong>Meal Type:</strong> <span id="viewMealType"></span></p>
+      <p><strong>Ingredients:</strong> <span id="viewMealIngredients"></span></p>
     </div>
   </div>
 
@@ -240,6 +361,41 @@
     toggleBtn.addEventListener('click', () => {
       sidebar.classList.toggle('show');
     });
+
+    let currentCard = null;
+
+    function openEditModal(icon) {
+      currentCard = icon.closest('.meal-card');
+      const title = currentCard.querySelector('strong').innerText;
+      const desc = currentCard.querySelector('em').innerText;
+      document.getElementById('editTitle').value = title;
+      document.getElementById('editDesc').value = desc;
+      document.getElementById('editModal').style.display = 'flex';
+    }
+
+    function closeEditModal() {
+      document.getElementById('editModal').style.display = 'none';
+    }
+
+    function saveEdit() {
+      const newTitle = document.getElementById('editTitle').value;
+      const newDesc = document.getElementById('editDesc').value;
+      currentCard.querySelector('strong').innerText = newTitle;
+      currentCard.querySelector('em').innerText = newDesc;
+      closeEditModal();
+    }
+
+    function openViewModal(mealData) {
+      document.getElementById("viewMealName").textContent = mealData.name;
+      document.getElementById("viewMealImage").src = mealData.image;
+      document.getElementById("viewMealType").textContent = mealData.type;
+      document.getElementById("viewMealIngredients").textContent = mealData.ingredients.join(", ");
+      document.getElementById("viewModal").style.display = "flex";
+    }
+
+    function closeViewModal() {
+      document.getElementById("viewModal").style.display = "none";
+    }
   </script>
 </body>
 </html>
