@@ -171,8 +171,7 @@
     }
 
     .btn-outline-secondary:hover {
-      background-color: #d4eec1;
-      color: #2f3c1e;
+      background-color: #d4eec1
     }
 
     .badge {
@@ -187,7 +186,7 @@
     }
 
     .badge.bg-success {
-      background-color: #a3d9a5;
+      background-color: #d4eec1;
     }
 
     .badge.bg-info {
@@ -197,14 +196,14 @@
 
     .btn-danger {
       border-radius: 20px;
-      padding: 10px 20px;
+      padding: 10px 10px;
     }
 
     .nav-tabs .nav-link {
       border-radius: 10px 10px 0 0;
       background-color: #d2efbc;
       color: #495733;
-      margin-right: 5px;
+      margin-right: 2px;
     }
 
     .nav-tabs .nav-link.active {
@@ -220,6 +219,7 @@
 
 .preference-title {
   font-weight: bold;
+  font-size: 20px;
   margin-bottom: 8px;
 }
 
@@ -227,14 +227,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  justify-content: flex-start;
 }
 
 .preference-btn {
   padding: 8px 20px;
   border: 2px solid #495733;
   border-radius: 999px;
-  background-color: white;
+  background-color:#d4eec1;
   color: #495733;
   font-size: 14px;
   cursor: pointer;
@@ -272,17 +271,17 @@
   <div class="section-title">Settings</div>
 
   <!-- Tabs -->
-  <ul class="nav nav-tabs mb-4" id="settingsTab" role="tablist">
-    <li class="nav-item" role="presentation">
+  <ul class="nav nav-tabs mb-4 d-flex flex-wrap gap-2" id="settingsTab" role="tablist">
+    <li class="nav-item w-auto" role="presentation">
       <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab">Edit Profile</button>
     </li>
-    <li class="nav-item" role="presentation">
+    <li class="nav-item w-auto" role="presentation">
       <button class="nav-link" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab">Account Information</button>
     </li>
-    <li class="nav-item" role="presentation">
+    <li class="nav-item w-auto" role="presentation">
       <button class="nav-link" id="mealplan-tab" data-bs-toggle="tab" data-bs-target="#mealplan" type="button" role="tab">Meal Plan Preferences</button>
     </li>
-    <li class="nav-item" role="presentation">
+    <li class="nav-item w-auto" role="presentation">
       <button class="nav-link" id="privacy-tab" data-bs-toggle="tab" data-bs-target="#privacy" type="button" role="tab">Privacy and Security</button>
     </li>
   </ul>
@@ -293,8 +292,6 @@
       <div class="card p-4 mb-4">
         <h5>Profile Settings</h5>
         <div class="d-flex align-items-center mb-3">
-          <img src="images/profile.png" class="rounded-circle me-3" width="60" height="60" alt="Profile Icon">
-          <button class="btn btn-outline-secondary">Change Icon</button>
         </div>
         <div class="row g-3">
           <div class="col-md-6">
@@ -399,7 +396,7 @@
   toggleBtn.addEventListener('click', () => {
     sidebar.classList.toggle('show');
   });
-
+  
   function setupSelectableButtons(containerId) {
     const container = document.getElementById(containerId);
     const buttons = container.querySelectorAll(".preference-btn");
