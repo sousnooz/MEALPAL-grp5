@@ -18,7 +18,7 @@
       color: #495733;
     }
 
-    /* side navigation bar */
+    /* NAVIGATION STYLES */
     .sidebar {
       position: fixed;
       top: 0;
@@ -52,7 +52,7 @@
     .nav-item {
       width: 100%;
       margin: 10px 0;
-      padding: 20px 20px;
+      padding: 20px;
       display: flex;
       align-items: center;
       gap: 15px;
@@ -80,8 +80,8 @@
     }
 
     .main {
-      margin-left: 320px;
       padding: 20px;
+      margin-left: 320px;
       transition: margin-left 0.3s ease;
     }
 
@@ -153,6 +153,172 @@
         display: block;
       }
     }
+
+    /* MEALS STYLES */
+    .meals {
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      background-color: #e9f9d8;
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+    }
+
+    .meals::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .meals::-webkit-scrollbar-thumb {
+      background-color: #d9d9d9;
+      border-radius: 10px;
+    }
+
+    .meal-card {
+      min-width: 300px;
+      background-color: rgb(255, 255, 255);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .meal-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .meal-card img {
+      width: 100%;
+      border-radius: 15px;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    .meal-card h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+    }
+
+    .meal-card p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    /* SHOPPING LIST CONTAINER STYLES */
+    .shopping-list {
+      background-color: #e9f9d8;
+      padding: 20px;
+      border-radius: 20px;
+      margin-bottom: 30px;
+    }
+
+    .shopping-list-item {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .shopping-list-item span {
+      transition: text-decoration 0.2s ease;
+    }
+
+    .shopping-list-item.checked span {
+      text-decoration: line-through;
+      color: #999;
+    }
+
+    /* CHECK BOXES FEATURES STYLES */
+    .custom-checkbox {
+      position: relative;
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    .custom-checkbox input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .custom-checkbox .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 18px;
+      width: 18px;
+      background-color: white;
+      border: 2px solid #495733;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .custom-checkbox input:checked + .checkmark {
+      background-color: #495733;
+      border-color: #495733;
+    }
+
+    .custom-checkbox .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    .custom-checkbox input:checked + .checkmark:after {
+      display: block;
+    }
+
+    .custom-checkbox .checkmark:after {
+      left: 5px;
+      top: 1px;
+      width: 4px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+
+       /* POP UP FEATURE WHEN CLICKED STLES */
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  .modal-content {
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 15px;
+    width: 60%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    color: #495733;
+  }
+
+  .close {
+    color: #d9d9d9;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close:hover {
+    color: #495733;
+  }
+
   </style>
 </head>
 <body>
@@ -165,7 +331,7 @@
   <!-- side bar for both web and phone view -->
   <div class="sidebar" id="sidebar">
     <img src="images/logo.png" class="logo" />
-    <a href="dashboard.html" class="nav-item">
+    <a href="dashboard.html" class="nav-item active">
       <img src="images/dashboard.png" />
       Dashboard
     </a>
@@ -173,7 +339,7 @@
       <img src="images/meals.png" />
       My Meals
     </a>
-    <a href="shoppinglist.html" class="nav-item active">
+    <a href="shoppinglist.html" class="nav-item">
       <img src="images/shopping.png" />
       Shopping List
     </a>
@@ -193,20 +359,106 @@
       <h1>MealPal</h1>
     </div>
 
-    <div class="section-title">Shopping List</div>
+    <div class="section-title" id="welcome-title">Ready to Eat, User?</div>
+    <div class="meals" id="meals-container"></div>
 
-    <!-- MAIN STUFFS GO HERE -->
+    <div class="section-title">Your Shopping List Today!</div>
+    <div class="shopping-list" id="shopping-list-container"></div>
+
+    <!-- Modal -->
+<div id="itemModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="modalText">Placeholder text</p>
+  </div>
+</div>
 
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // hamburger menu toggle 
     const toggleBtn = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
-
     toggleBtn.addEventListener('click', () => {
       sidebar.classList.toggle('show');
     });
-  </script>
+
+    // dynamic name for user (hardcoded muna raynao...)
+    const userName = "Alex";
+    document.getElementById("welcome-title").textContent = `Ready to Eat, ${userName}?`;
+
+    const userPreferences = { diet: 'vegan', allergies: ['gluten'] };
+
+    const recommendedMeals = [
+  {
+    name: "Vegan Stir Fry",
+    description: "A colorful mix of veggies with tofu in a savory sauce.",
+    image: "images/vegan-stir-fry.jpg",
+    ingredients: ["broccoli", "carrots", "bell pepper", "tofu", "soy sauce", "garlic"]
+  },
+  {
+    name: "Quinoa Salad",
+    description: "Nutritious quinoa with chickpeas and fresh veggies.",
+    image: "images/quinoa-salad.jpg",
+    ingredients: ["quinoa", "chickpeas", "cucumber", "tomato", "lemon juice", "olive oil"]
+  },
+  {
+    name: "Gluten-Free Pasta",
+    description: "Delicious pasta made from rice flour, perfect for gluten-free diets.",
+    image: "images/gluten-free-pasta.jpg",
+    ingredients: ["gluten-free pasta", "tomato sauce", "basil", "zucchini", "olive oil"]
+  }
+];
+
+const mealsContainer = document.getElementById("meals-container");
+const shoppingListContainer = document.getElementById("shopping-list-container");
+
+// Display meals
+recommendedMeals.forEach(meal => {
+  const card = document.createElement("div");
+  card.className = "meal-card";
+  card.innerHTML = `
+    <img src="${meal.image}" alt="${meal.name}">
+    <h3>${meal.name}</h3>
+    <p>${meal.description}</p>
+  `;
+  mealsContainer.appendChild(card);
+});
+
+// Compile all ingredients from the meals
+const allIngredients = recommendedMeals.flatMap(meal => meal.ingredients);
+const uniqueIngredients = [...new Set(allIngredients)];
+
+uniqueIngredients.forEach(ingredient => {
+  const item = document.createElement("label");
+  item.className = "shopping-list-item";
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+
+  const span = document.createElement("span");
+  span.textContent = ingredient;
+
+  checkbox.addEventListener("change", () => {
+    item.classList.toggle("checked", checkbox.checked);
+    // Save checkbox state
+    localStorage.setItem(`checked-${ingredient}`, checkbox.checked);
+  });
+
+  // Load checkbox state
+  const savedState = localStorage.getItem(`checked-${ingredient}`);
+  if (savedState === "true") {
+    checkbox.checked = true;
+    item.classList.add("checked");
+  }
+
+  item.appendChild(checkbox);
+  item.appendChild(span);
+  shoppingListContainer.appendChild(item);
+});
+
+
+</script>
 </body>
-</html>
+</html> ```

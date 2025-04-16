@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oops! Something went wrong </title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #e3f8c7;
+      color: #495733;
+      font-family: 'Century Gothic', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+
+    .container {
+      max-width: 500px;
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #495733;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    img {
+      width: 300px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #495733;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        color: #495733;
+        background-color: #e3f8c7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="images/logo.png" />
+    <h1>Oops! Page Not Found</h1>
+    <p>Looks like the recipe you’re looking for doesn’t exist. Let’s get you back to something tasty!</p>
+    <button onclick="window.location.href='dashboard.html'">Back to MealPal</button>
+  </div>
+</body>
+</html>
